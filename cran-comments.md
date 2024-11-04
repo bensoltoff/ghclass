@@ -1,18 +1,8 @@
-## R CMD check results
-
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
-
 ## Resubmission
 
-This is a resubmission. In this version we have:
+Thank you for canceling the previous submission, I missed a show stopping bug in one of the recent changes to the package that only affected a subset of GitHub API endpoints. The bug has been fixed and I am resubmitting with the corrected version.
 
-* Removed LICENSE file and corrected the relevant entry in DESCRIPTION.
+## R CMD check results
 
-* Vignette example was altered to use `tempdir()` for all downloaded files.
-
-* All `local_repo_*` functions were checked to confirm that no default directories were used and all documentation examples exclusively use `tempdir()`
-
-* All function documentation was reviewed and revised to make sure they include details on return values.
+0 errors | 0 warnings | 0 notes
 
