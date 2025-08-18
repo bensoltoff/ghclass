@@ -1,8 +1,20 @@
-# ghclass (development version)
+# ghclass 0.3.1
 
 * Added check to `repo_mirror_template()` for empty repositories to avoid cryptic GitHub api error.
 
 * Added `repo_pushes()` to retrieve push activity for a repository.
+
+* Added `org_workflow_permissions()` and `org_set_workflow_permissions()` to handle organization workflow permissions.
+
+* Added workflow permissions details to `org_sitrep()`
+
+* Bug fixes
+  
+  * Handle artifacts with large id values (causing an integer overflow)
+  
+  * Duplicate action badges from `org_create_assignment()`
+
+* Altered `org_create_assignment()` to require the use of a template repository as `source_repo`.
 
 # ghclass 0.3.0
 
