@@ -4,7 +4,7 @@ github_api_v4_graphql = function(query, vars = list()) {
   query = graphql_glue(query, vars)
 
   req = httr::POST(
-    "http(s)://github.coecis.cornell.edu/api/graphql",
+    "https://github.coecis.cornell.edu/api/graphql",
     httr::add_headers(
       Authorization = paste("bearer", github_get_token())
     ),
