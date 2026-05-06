@@ -14,6 +14,9 @@ valid_repo_error = function(repo) {
 
 
 ## FIXME
+#' Internal repo helper
+#' @keywords internal
+#' @export
 match_repo = function(repo, index=1) {
   arg_is_chr(repo)
 
@@ -29,10 +32,16 @@ match_repo = function(repo, index=1) {
 }
 
 
+#' Internal repo helper
+#' @keywords internal
+#' @export
 get_repo_name = function(repo) {
   match_repo(repo, 3)
 }
 
+#' Internal repo helper
+#' @keywords internal
+#' @export
 get_repo_owner = function(repo) {
   match_repo(repo, 2)
 }
@@ -54,6 +63,9 @@ get_repo_url = function(repo, type = c("https","ssh"), use_token = TRUE)
 }
 
 
+#' Internal repo helper
+#' @keywords internal
+#' @export
 format_repo = function(repo, branch = NULL, path = NULL) {
   if (!is.null(branch)) {
     repo = paste(repo, branch, sep="@")

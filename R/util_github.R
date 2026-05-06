@@ -20,6 +20,9 @@ github_api_download_file = function(url, dest) {
   return(dest)
 }
 
+#' Internal GitHub API helper
+#' @keywords internal
+#' @export
 github_api_repo_tree = function(repo, sha = NULL) {
   arg_is_chr_scalar(repo)
   arg_is_chr_scalar(sha, allow_null = TRUE)
@@ -35,6 +38,9 @@ github_api_repo_tree = function(repo, sha = NULL) {
   )
 }
 
+#' Internal GitHub API helper
+#' @keywords internal
+#' @export
 repo_files = function(repo, branch = NULL) {
   arg_is_chr(repo)
   arg_is_chr(branch, allow_null = TRUE)
@@ -183,6 +189,9 @@ endpoint_verb = function(x) {
 }
 
 
+#' Internal GitHub API helper
+#' @keywords internal
+#' @export
 ghclass_api_v3_req = function(
     endpoint, ..., .send_headers = character(),
     version = "2022-11-28", limit = github_get_api_limit()

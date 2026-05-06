@@ -1,3 +1,6 @@
+#' Internal binary file reader
+#' @keywords internal
+#' @export
 read_bin_file = function(x) {
   f = file(x, "rb")
   size = file.size(x)

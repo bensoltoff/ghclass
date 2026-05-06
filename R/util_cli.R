@@ -1,3 +1,6 @@
+#' Internal cli helper
+#' @keywords internal
+#' @export
 cli_glue = function(..., .envir = parent.frame()) {
   txt = cli::cli_format_method(cli::cli_text(..., .envir = .envir))
 
@@ -6,11 +9,17 @@ cli_glue = function(..., .envir = parent.frame()) {
   paste(txt, collapse = " ")
 }
 
+#' Internal cli helper
+#' @keywords internal
+#' @export
 cli_stop = function(..., .envir = parent.frame()) {
   text = cli_glue(..., .envir = .envir)
   stop(paste(text, collapse = "\n"), call. = FALSE)
 }
 
+#' Internal cli helper
+#' @keywords internal
+#' @export
 cli_warn = function(..., .envir = parent.frame()) {
   text = cli_glue(..., .envir = .envir)
   warning(paste(text, collapse = "\n"), call. = FALSE)
