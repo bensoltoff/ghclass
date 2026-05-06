@@ -11,32 +11,28 @@ handle_arg_list = function(..., tests) {
   purrr::walk2(names, values, tests)
 }
 
-#' Internal argument validation helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 arg_is_chr_scalar = function(..., allow_null = FALSE, allow_na = FALSE) {
   arg_is_chr(..., allow_null = allow_null, allow_na = allow_na)
   arg_is_scalar(..., allow_null = allow_null, allow_na = allow_na)
 }
 
-#' Internal argument validation helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 arg_is_lgl_scalar = function(..., allow_null = FALSE, allow_na = FALSE) {
   arg_is_lgl(..., allow_null = allow_null, allow_na = allow_na)
   arg_is_scalar(..., allow_null = allow_null, allow_na = allow_na)
 }
 
-#' Internal argument validation helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 arg_is_pos_int_scalar = function(..., allow_null = FALSE, allow_na = FALSE) {
   arg_is_pos_int(..., allow_null = allow_null)
   arg_is_scalar(..., allow_null = allow_null, allow_na = allow_na)
 }
 
-#' Internal argument validation helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 arg_is_chr = function(..., allow_null = FALSE, allow_na = FALSE, allow_empty = TRUE) {
   handle_arg_list(
@@ -54,8 +50,7 @@ arg_is_chr = function(..., allow_null = FALSE, allow_na = FALSE, allow_empty = T
   )
 }
 
-#' Internal argument validation helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 arg_is_lgl = function(..., allow_null = FALSE, allow_na = FALSE, allow_empty = TRUE) {
   handle_arg_list(
@@ -109,8 +104,7 @@ arg_is_pos_int = function(..., allow_null = FALSE) {
   )
 }
 
-#' Internal argument validation helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 arg_is_pos_int = function(..., allow_null = FALSE) {
   handle_arg_list(

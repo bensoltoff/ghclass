@@ -25,31 +25,27 @@ check_safely_result = function(x) {
     stop(cli_glue("Object is not a {.code purrr::safely} result"), call. = FALSE)
 }
 
-#' Internal safely-result helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 result = function(x) {
   #check_safely_result(x)
   x[["result"]]
 }
 
-#' Internal safely-result helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 error = function(x) {
   #check_safely_result(x)
   x[["error"]]
 }
 
-#' Internal safely-result helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 succeeded = function(x) {
   !is.null(result(x))
 }
 
-#' Internal safely-result helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 failed = function(x) {
   !is.null(error(x))
@@ -160,8 +156,7 @@ has_404_attr = function(x) {
 
 # TODO - fix error_msg processing - doesnt work for PR and some others
 
-#' Internal safely-result helper
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 status_msg = function(x, success = NULL, fail = NULL, include_error_msg = TRUE,
                       .envir = parent.frame()) {

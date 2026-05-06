@@ -1,5 +1,4 @@
-#' Internal binary file reader
-#' @keywords internal
+#' @rdname ghclass-internal
 #' @export
 read_bin_file = function(x) {
   f = file(x, "rb")
