@@ -1,20 +1,20 @@
 # ghclass (development version)
 
-# ghclass 0.3.1.9000 - Development version
+# ghclass 0.4.0
 
 * Added `ignore_existing` argument to `org_create_assignment()` (#134, idea by @davidbuch).
 
-* `repo_commits()` now also returns a `committer_date` column. The `date` column contains the author date, while `since` / `until` are filtered by GitHub against the committer date (#139).
+* Added `committer_date` column to `repo_commits()` output (#139).
 
-* Added a `comment` argument to `issue_close()` that posts a comment on each issue before closing. If the comment fails to post the issue is left open (#136).
+* Added `comment` argument to `issue_close()` (#136).
 
-* `repo_contributors()` now retries on HTTP 202 responses and warns if stats are still not ready, rather than silently returning empty (#117).
+* `repo_contributors()` now retries on HTTP 202 and warns instead of silently returning empty (#117).
 
-* `org_repo_stats()` now deduplicates rows by repo to guard against the GraphQL search API occasionally returning the same repo on multiple pages (#116).
+* `org_repo_stats()` now deduplicates rows by repo (#116).
 
-* Added `org_user_repos()` for building per-user repo addresses aligned with a user vector (#103).
+* Added `org_user_repos()` (#103).
 
-* Logical argument descriptions across the package now state the default value (#39).
+* Logical `@param` descriptions now state defaults (#39).
 
 * Improvements to `action_artifacts()` and `action_artifact_download()`
 
