@@ -2,6 +2,8 @@
 
 # ghclass 0.3.1.9000 - Development version
 
+* Added `ignore_existing` argument to `org_create_assignment()` (#134, idea by @davidbuch).
+
 * `repo_commits()` now also returns a `committer_date` column. The `date` column contains the author date, while `since` / `until` are filtered by GitHub against the committer date (#139).
 
 * Added a `comment` argument to `issue_close()` that posts a comment on each issue before closing. If the comment fails to post the issue is left open (#136).

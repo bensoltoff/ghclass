@@ -11,7 +11,8 @@ org_create_assignment(
   team = NULL,
   source_repo = NULL,
   private = TRUE,
-  add_badges = FALSE
+  add_badges = FALSE,
+  ignore_existing = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,10 @@ org_create_assignment(
 \item{private}{Logical. Should the created repositories be private. Default \code{TRUE}.}
 
 \item{add_badges}{Logical. Should GitHub action badges be added to the README. Default \code{FALSE}.}
+
+\item{ignore_existing}{Logical. If \code{TRUE}, any requested repos that already
+exist are skipped (with a warning) and the remaining repos are still
+created; useful for resuming a partially failed run. Default \code{FALSE}.}
 }
 \value{
 An invisible list containing the results of each step.
