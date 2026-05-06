@@ -13,8 +13,8 @@
 #' @param user Character. GitHub username(s).
 #' @param team Character. Team names, if not provided an individual assignment will be created.
 #' @param source_repo Character. Address of the repository to use as a template for all created repos.
-#' @param private Logical. Should the created repositories be private.
-#' @param add_badges Logical. Should GitHub action badges be added to the README.
+#' @param private Logical. Should the created repositories be private. Default `TRUE`.
+#' @param add_badges Logical. Should GitHub action badges be added to the README. Default `FALSE`.
 #'
 #' @return An invisible list containing the results of each step.
 #'

@@ -83,29 +83,29 @@ action_workflows(repo, full = FALSE)
 
 \item{filter}{Character. Regex pattern to filter artifacts by artifact name.}
 
-\item{exclude}{Logical. If \code{TRUE}, exclude artifact names matching \code{filter} instead of including them.}
+\item{exclude}{Logical. If \code{TRUE}, exclude artifact names matching \code{filter} instead of including them. Default \code{FALSE}.}
 
-\item{keep_expired}{Logical. Should expired artifacts be returned.}
+\item{keep_expired}{Logical. Should expired artifacts be returned. Default \code{FALSE}.}
 
 \item{which}{Character. Either \code{"latest"} to return only the most recent of each
 artifact or \code{"all"} to return all artifacts.}
 
 \item{filter_branch}{Character. Regex pattern to filter artifacts by branch name.}
 
-\item{exclude_branch}{Logical. If \code{TRUE}, exclude branches matching \code{filter_branch} instead of including them.}
+\item{exclude_branch}{Logical. If \code{TRUE}, exclude branches matching \code{filter_branch} instead of including them. Default \code{FALSE}.}
 
 \item{ids}{Integer or data frame. Artifact ids to be downloaded or deleted.
 If a data frame is passed then the \code{id} column will be used.}
 
 \item{dir}{Character. Path to the directory where logs or artifacts will be saved.}
 
-\item{keep_zip}{Logical. Should the log zips be saved (\code{TRUE}) or their contents extracted (\code{FALSE}).}
+\item{keep_zip}{Logical. Should the log zips be saved (\code{TRUE}) or their contents extracted (\code{FALSE}). Default \code{FALSE}.}
 
 \item{nest}{Logical. If \code{TRUE}, place each repo's artifacts under a
 \verb{dir/\{repo_name\}/} subdirectory; otherwise flatten into \verb{dir/} with
-repo-prefixed names.}
+repo-prefixed names. Default \code{FALSE}.}
 
-\item{overwrite}{Logical. Should existing files be overwritten.}
+\item{overwrite}{Logical. Should existing files be overwritten. Default \code{FALSE}.}
 
 \item{run_ids}{Integer or data frame. Run ids for which to download logs.
 If a data frame is passed then the \code{run_id} column will be used.

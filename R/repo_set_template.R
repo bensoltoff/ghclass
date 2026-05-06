@@ -12,7 +12,7 @@ github_api_repo_edit = function(repo, ...) {
 }
 
 #' @rdname repo_core
-#' @param status Logical. Should the repository be set as a template repository
+#' @param status Logical. Should the repository be set as a template repository. Default `TRUE`.
 #' @export
 #'
 repo_set_template = function(repo, status = TRUE) {

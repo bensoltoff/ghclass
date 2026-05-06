@@ -11,8 +11,8 @@ github_api_repo = function(repo) {
 }
 
 #' @rdname repo_core
-#' @param strict Logical. Should the old name of a renamed repositories be allowed.
-#' @param quiet Logical. Should details on renamed repositories be printed.
+#' @param strict Logical. Should the old name of a renamed repositories be allowed. Default `FALSE`.
+#' @param quiet Logical. Should details on renamed repositories be printed. Default `FALSE`.
 #' @export
 #'
 repo_exists = function(repo, strict = FALSE, quiet = FALSE) {

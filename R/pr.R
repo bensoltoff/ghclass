@@ -17,7 +17,7 @@
 #' a pull request to one repository that requests a merge to a base of another repository.
 #' @param body Character. The text contents of the pull request.
 #' @param draft Logical. Should the pull request be created as a draft pull request
-#' (these cannot be merged until allowed by the author).
+#' (these cannot be merged until allowed by the author). Default `FALSE`.
 #'
 #' @return `pr_create()` invisibly return a list containing the results of the relevant GitHub API calls.
 #'

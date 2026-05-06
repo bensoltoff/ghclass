@@ -12,13 +12,13 @@ github_api_action_artifacts = function(repo) {
 #' @rdname action
 #'
 #' @param repo Character. Address of repositories in `owner/name` format.
-#' @param keep_expired Logical. Should expired artifacts be returned.
+#' @param keep_expired Logical. Should expired artifacts be returned. Default `FALSE`.
 #' @param which Character. Either `"latest"` to return only the most recent of each
 #'   artifact or `"all"` to return all artifacts.
 #' @param filter_branch Character. Regex pattern to filter artifacts by branch name.
-#' @param exclude_branch Logical. If `TRUE`, exclude branches matching `filter_branch` instead of including them.
+#' @param exclude_branch Logical. If `TRUE`, exclude branches matching `filter_branch` instead of including them. Default `FALSE`.
 #' @param filter Character. Regex pattern to filter artifacts by artifact name.
-#' @param exclude Logical. If `TRUE`, exclude artifact names matching `filter` instead of including them.
+#' @param exclude Logical. If `TRUE`, exclude artifact names matching `filter` instead of including them. Default `FALSE`.
 #' @export
 #'
 action_artifacts = function(repo, filter = NULL, exclude = FALSE,

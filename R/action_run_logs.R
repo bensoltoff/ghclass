@@ -24,8 +24,8 @@ github_api_download_run_logs = function(repo, run_id, dest) {
 #' @param run_ids Integer or data frame. Run ids for which to download logs.
 #' If a data frame is passed then the `run_id` column will be used.
 #' Defaults to the most recent run for each repo (i.e. `action_runs(repo)`).
-#' @param keep_zip Logical. Should the log zips be saved (`TRUE`) or their contents extracted (`FALSE`).
-#' @param overwrite Logical. Should existing files be overwritten.
+#' @param keep_zip Logical. Should the log zips be saved (`TRUE`) or their contents extracted (`FALSE`). Default `FALSE`.
+#' @param overwrite Logical. Should existing files be overwritten. Default `FALSE`.
 #'
 #' @export
 #'

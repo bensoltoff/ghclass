@@ -27,10 +27,10 @@ user_type(user)
 
 \item{filter}{Character. Regular expression pattern for matching (or excluding) repositories.}
 
-\item{exclude}{Logical. Should entries matching the regular expression in \code{filter} be excluded or included?}
+\item{exclude}{Logical. Should entries matching the regular expression in \code{filter} be excluded or included? Default \code{FALSE}.}
 
 \item{full_repo}{Logical. Should the full repository address be returned
-(e.g. \code{owner/repo} instead of just \code{repo})?}
+(e.g. \code{owner/repo} instead of just \code{repo})? Default \code{TRUE}.}
 }
 \value{
 \code{user_exists()} returns a logical vector.

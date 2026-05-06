@@ -78,9 +78,9 @@ github_api_org_repo_stats = function(org, branch = NULL, filter = "", filter_typ
 #' @param filter_type Character. One or more GitHub search `in` qualifiers.
 #' See [documentation](https://help.github.com/en/articles/searching-for-repositories)
 #' for more details.
-#' @param inc_commits Logical. Include commit statistics (`branch`, `commits`, `last_update`)
-#' @param inc_issues Logical. Include issue statistics (`open_issues`, `closed_issues`)
-#' @param inc_prs Logical. Include pull request statistics (`open_prs`, `merged_prs`, `closed_prs`)
+#' @param inc_commits Logical. Include commit statistics (`branch`, `commits`, `last_update`). Default `TRUE`.
+#' @param inc_issues Logical. Include issue statistics (`open_issues`, `closed_issues`). Default `TRUE`.
+#' @param inc_prs Logical. Include pull request statistics (`open_prs`, `merged_prs`, `closed_prs`). Default `TRUE`.
 #'
 #' @export
 #'
@@ -131,5 +131,6 @@ org_repo_stats = function(org, branch = NULL, filter = "", filter_type="in:name"
 
       df
     }
-  )
+  ) %>%
+    dplyr::distinct(.data$repo, .keep_all = TRUE)
 }

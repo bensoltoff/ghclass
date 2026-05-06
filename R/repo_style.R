@@ -7,11 +7,11 @@
 #' @param files Character or vector of characters. Names of .R and/or .Rmd files that styler should be applied to.
 #' @param branch Character. Name of new branch to be created or overwritten. Default is "styler".
 #' @param base Character. Name of branch that contains the .R and/or .Rmd files to be styled
-#' @param create_pull_request Logical. If TRUE, a pull request is created from branch to base.
+#' @param create_pull_request Logical. If TRUE, a pull request is created from branch to base. Default `TRUE`.
 #' @param draft Logical. Should the pull request be created as a draft pull request? (Draft PRs cannot be merged
-#'   until allowed by the author)
-#' @param tag_collaborators Logical. If TRUE, a message with the repository collaborators is displayed.
-#' @param prompt Character. Prompt the user before overwriting an existing branch.
+#'   until allowed by the author) Default `TRUE`.
+#' @param tag_collaborators Logical. If TRUE, a message with the repository collaborators is displayed. Default `TRUE`.
+#' @param prompt Logical. Prompt the user before overwriting an existing branch. Default `TRUE`.
 #'
 #' @return The functions returns NULL invisibly.
 #'

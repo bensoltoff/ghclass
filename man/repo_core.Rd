@@ -62,32 +62,32 @@ repo_set_template(repo, status = TRUE)
 
 \item{suffix}{Character. Common repository name suffix}
 
-\item{private}{Logical. Should the new repository be private or public.}
+\item{private}{Logical. Should the new repository be private or public. Default \code{TRUE}.}
 
-\item{auto_init}{Logical. Should the repository be initialized with a \code{README.md}.}
+\item{auto_init}{Logical. Should the repository be initialized with a \code{README.md}. Default \code{FALSE}.}
 
 \item{gitignore_template}{Character. \code{.gitignore} language template to use.}
 
 \item{prompt}{Logical. Should the user be prompted before deleting repositories. Default \code{true}.}
 
-\item{strict}{Logical. Should the old name of a renamed repositories be allowed.}
+\item{strict}{Logical. Should the old name of a renamed repositories be allowed. Default \code{FALSE}.}
 
-\item{quiet}{Logical. Should details on renamed repositories be printed.}
+\item{quiet}{Logical. Should details on renamed repositories be printed. Default \code{FALSE}.}
 
 \item{source_repo}{Character. Address of template repository in \code{owner/name} format.}
 
 \item{target_repo}{Character. One or more repository addresses in \code{owner/name} format.
 Note when using template repos these new repositories must \emph{not} exist.}
 
-\item{overwrite}{Logical. Should the target repositories be overwritten.}
+\item{overwrite}{Logical. Should the target repositories be overwritten. Default \code{FALSE}.}
 
-\item{verbose}{Logical. Display verbose output.}
+\item{verbose}{Logical. Display verbose output. Default \code{FALSE}.}
 
-\item{warn}{Logical. Warn the user about the function being deprecated.}
+\item{warn}{Logical. Warn the user about the function being deprecated. Default \code{TRUE}.}
 
 \item{new_repo}{Character. New name of repository without the owner.}
 
-\item{status}{Logical. Should the repository be set as a template repository}
+\item{status}{Logical. Should the repository be set as a template repository. Default \code{TRUE}.}
 }
 \value{
 \code{repo_create()} returns a character vector of created repos (in \code{owner/repo} format)

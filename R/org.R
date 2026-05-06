@@ -77,7 +77,7 @@ NULL
 #' @param org Character. Name of the GitHub organization(s).
 #' @param user Character. GitHub username(s).
 #' @param filter Character. Regular expression pattern for matching (or excluding) results
-#' @param exclude Logical. Should entries matching the regular expression be excluded or included.
+#' @param exclude Logical. Should entries matching the regular expression be excluded or included. Default `FALSE`.
 #'
 #' @return `org_members()`, `org_pending()`, and `org_admins` all return a character vector
 #' of GitHub account names.
@@ -135,15 +135,27 @@ NULL
 #'
 #' * `org_repo_forking()` - returns a tibble of private repositories in an organization and whether forking is enabled for each.
 #'
+#' * `org_user_repos()` - constructs a character vector of per-user repo addresses
+#' (`org/prefix<user>suffix`) aligned with `user`, for safely pairing with
+#' [repo_add_user()] and similar.
+#'
 #' @param org Character. Name of the GitHub organization(s).
 #' @param filter Character. Regular expression pattern for matching (or excluding) results
-#' @param exclude Logical. Should entries matching the regular expression be excluded or included.
+#' @param exclude Logical. Should entries matching the regular expression be excluded or included. Default `FALSE`.
 #'
 #' @return `org_exists()` returns a logical vector.
 #'
-#' `org_teams()`, `org_repos`, and `org_repo_search()` return a character vector of team or repo names.
+#' `org_teams()`, `org_repos`, `org_repo_search()`, and `org_user_repos()` return a character vector.
 #'
 #' `org_team_details()`, `org_repo_stats()`, and `org_repo_forking()` return tibbles.
+#'
+#' @section Note:
+#'
+#' The order of `org_repos()` is not guaranteed to match the order of
+#' `org_members()`, so do not rely on positional pairing of the two when
+#' calling functions like [repo_add_user()]. To pair each user with their own
+#' repo deterministically, build the repo names from the user vector with
+#' `org_user_repos()`.
 #'
 #' @examples
 #' \dontrun{

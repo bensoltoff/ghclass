@@ -30,7 +30,7 @@ github_api_repo_n_commits = function(repo) {
 #' @rdname repo_details
 #'
 #' @param repo   Character. Address of repository in `owner/name` format.
-#' @param quiet  Logical. Should an error message be printed if a repo does not exist.
+#' @param quiet  Logical. Should an error message be printed if a repo does not exist. Default `FALSE`.
 #'
 #' @export
 #'

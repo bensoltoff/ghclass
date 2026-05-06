@@ -26,11 +26,11 @@ org_remove(org, user, prompt = TRUE)
 
 \item{filter}{Character. Regular expression pattern for matching (or excluding) results}
 
-\item{exclude}{Logical. Should entries matching the regular expression be excluded or included.}
+\item{exclude}{Logical. Should entries matching the regular expression be excluded or included. Default \code{FALSE}.}
 
-\item{include_admins}{Logical. Should admin users be included in the results.}
+\item{include_admins}{Logical. Should admin users be included in the results. Default \code{TRUE}.}
 
-\item{prompt}{Logical. Prompt before removing member from organization.}
+\item{prompt}{Logical. Prompt before removing member from organization. Default \code{TRUE}.}
 }
 \value{
 \code{org_members()}, \code{org_pending()}, and \code{org_admins} all return a character vector

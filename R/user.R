@@ -15,9 +15,9 @@
 #' @param user Character. GitHub username(s).
 #' @param type Character. Can be one of "all", "owner", "public", "private", "member".
 #' @param filter Character. Regular expression pattern for matching (or excluding) repositories.
-#' @param exclude Logical. Should entries matching the regular expression in `filter` be excluded or included?
+#' @param exclude Logical. Should entries matching the regular expression in `filter` be excluded or included? Default `FALSE`.
 #' @param full_repo Logical. Should the full repository address be returned
-#' (e.g. `owner/repo` instead of just `repo`)?
+#' (e.g. `owner/repo` instead of just `repo`)? Default `TRUE`.
 #'
 #' @return `user_exists()` returns a logical vector.
 #'

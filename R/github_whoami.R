@@ -6,7 +6,7 @@ github_api_whoami = function() {
 
 #' Returns the login of the authenticated user (based on the current PAT).
 #'
-#' @param quiet Logical. Should status messages be shown.
+#' @param quiet Logical. Should status messages be shown. Default `FALSE`.
 #'
 #' @return Character value containing user login.
 #'
@@ -41,7 +41,7 @@ github_api_orgs = function() {
 #' Collect details on the authenticated user's GitHub organization memberships
 #' (based on the current PAT).
 #'
-#' @param quiet Logical. Should status messages be shown.
+#' @param quiet Logical. Should status messages be shown. Default `FALSE`.
 #'
 #' @return Returns a tibble with organization details.
 #'

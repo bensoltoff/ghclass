@@ -23,7 +23,7 @@ a pull request to one repository that requests a merge to a base of another repo
 \item{body}{Character. The text contents of the pull request.}
 
 \item{draft}{Logical. Should the pull request be created as a draft pull request
-(these cannot be merged until allowed by the author).}
+(these cannot be merged until allowed by the author). Default \code{FALSE}.}
 }
 \value{
 \code{pr_create()} invisibly return a list containing the results of the relevant GitHub API calls.

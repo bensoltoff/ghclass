@@ -87,6 +87,10 @@ Permissions can be set to any of the following:
 \item \code{"maintain"} - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
 \item \code{"triage"} - Recommended for contributors who need to proactively manage issues and pull requests without write access.
 }
+
+\code{repo_contributors()} is built on GitHub's \verb{/stats/contributors} endpoint,
+which groups commits by GitHub user. Commits whose author email is not
+linked to a GitHub account are not included in the result.
 }
 \examples{
 \dontrun{

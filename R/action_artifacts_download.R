@@ -20,12 +20,12 @@ github_api_download_artifact = function(repo, id, dest) {
 #' @rdname action
 #'
 #' @param keep_zip Logical. Should the downloaded zip files be retained (`TRUE`)
-#'   or deleted after extraction (`FALSE`).
+#'   or deleted after extraction (`FALSE`). Default `FALSE`.
 #' @param nest Logical. If `TRUE`, place each repo's artifacts under a
 #'   `dir/{repo_name}/` subdirectory; otherwise flatten into `dir/` with
-#'   repo-prefixed names.
+#'   repo-prefixed names. Default `FALSE`.
 #' @param overwrite Logical. Should existing zip files or extraction folders
-#'   be overwritten.
+#'   be overwritten. Default `FALSE`.
 #'
 #' @export
 #'

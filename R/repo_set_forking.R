@@ -1,5 +1,5 @@
 #' @rdname repo_core
-#' @param status Logical. Should forking be allowed for the repository.
+#' @param status Logical. Should forking be allowed for the repository. Default `TRUE`.
 #' @export
 #'
 repo_set_forking = function(repo, status = TRUE) {

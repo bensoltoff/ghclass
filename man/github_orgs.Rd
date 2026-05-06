@@ -8,7 +8,7 @@
 github_orgs(quiet = FALSE)
 }
 \arguments{
-\item{quiet}{Logical. Should status messages be shown.}
+\item{quiet}{Logical. Should status messages be shown. Default \code{FALSE}.}
 }
 \value{
 Returns a tibble with organization details.

@@ -19,7 +19,7 @@ github_api_org_remove_membership = function(org, user) {
 # TODO - think about removing (or not) team membership
 
 #' @rdname org_members
-#' @param prompt Logical. Prompt before removing member from organization.
+#' @param prompt Logical. Prompt before removing member from organization. Default `TRUE`.
 #' @export
 #'
 org_remove = function(org, user, prompt = TRUE) {

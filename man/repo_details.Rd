@@ -67,9 +67,9 @@ repo_pushes(
 
 \item{since}{Character. Only issues updated at or after this time are returned.}
 
-\item{until}{Character.    Only commits before this date will be returned, expects \code{YYYY-MM-DDTHH:MM:SSZ} format.}
+\item{until}{Character.    Only commits before this date will be returned, expects \code{YYYY-MM-DDTHH:MM:SSZ} format. Filtered against the \code{committer_date} column, see Details.}
 
-\item{quiet}{Logical. Should an error message be printed if a repo does not exist.}
+\item{quiet}{Logical. Should an error message be printed if a repo does not exist. Default \code{FALSE}.}
 
 \item{state}{Character. Pull request state.}
 
@@ -104,6 +104,16 @@ Options are  "all time", "day", "week", "month", "quarter", "year".}
 \item \code{repo_prs()} - Returns a tibble of pull requests for a GitHub repository.
 \item \code{repo_pushes()} - Returns a tibble of push activity to a GitHub repository.
 }
+}
+\details{
+For \code{repo_commits()}, GitHub returns two timestamps for each commit: the
+author date (\code{date}) and the committer date (\code{committer_date}). These
+differ for rebased, cherry-picked, or amended commits. The \code{since} and
+\code{until} arguments are filtered by GitHub against the committer date.
+
+The \code{login} column is \code{NA} when the commit's author email is not linked
+to a GitHub account. The git author's \code{name} and \code{email} are still
+populated in those cases.
 }
 \examples{
 \dontrun{
