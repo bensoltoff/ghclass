@@ -1,6 +1,6 @@
 #' @rdname repo_file
 #'
-#' @param full_path Logical. Should the function return the full path of the files and directories.
+#' @param full_path Logical. Should the function return the full path of the files and directories. Default `FALSE`.
 #'
 #' @export
 #'

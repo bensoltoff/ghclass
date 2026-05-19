@@ -11,21 +11,29 @@ handle_arg_list = function(..., tests) {
   purrr::walk2(names, values, tests)
 }
 
+#' @rdname ghclass-internal
+#' @export
 arg_is_chr_scalar = function(..., allow_null = FALSE, allow_na = FALSE) {
   arg_is_chr(..., allow_null = allow_null, allow_na = allow_na)
   arg_is_scalar(..., allow_null = allow_null, allow_na = allow_na)
 }
 
+#' @rdname ghclass-internal
+#' @export
 arg_is_lgl_scalar = function(..., allow_null = FALSE, allow_na = FALSE) {
   arg_is_lgl(..., allow_null = allow_null, allow_na = allow_na)
   arg_is_scalar(..., allow_null = allow_null, allow_na = allow_na)
 }
 
+#' @rdname ghclass-internal
+#' @export
 arg_is_pos_int_scalar = function(..., allow_null = FALSE, allow_na = FALSE) {
   arg_is_pos_int(..., allow_null = allow_null)
   arg_is_scalar(..., allow_null = allow_null, allow_na = allow_na)
 }
 
+#' @rdname ghclass-internal
+#' @export
 arg_is_chr = function(..., allow_null = FALSE, allow_na = FALSE, allow_empty = TRUE) {
   handle_arg_list(
     ...,
@@ -42,6 +50,8 @@ arg_is_chr = function(..., allow_null = FALSE, allow_na = FALSE, allow_empty = T
   )
 }
 
+#' @rdname ghclass-internal
+#' @export
 arg_is_lgl = function(..., allow_null = FALSE, allow_na = FALSE, allow_empty = TRUE) {
   handle_arg_list(
     ...,
@@ -94,6 +104,8 @@ arg_is_pos_int = function(..., allow_null = FALSE) {
   )
 }
 
+#' @rdname ghclass-internal
+#' @export
 arg_is_pos_int = function(..., allow_null = FALSE) {
   handle_arg_list(
     ...,
@@ -111,7 +123,7 @@ arg_is_df = function(..., allow_null = FALSE, allow_empty = FALSE) {
       if (!inherits(value, "data.frame") | (is.null(value) & allow_null))
         cli_stop("Argument {.val {name}} must be a data frame.")
       if (!is.null(value)) {
-        if (nrow(value) == 0)
+        if (nrow(value) == 0 & !allow_empty)
           cli_stop("Argument {.val {name}} must be a data frame with nrows >= 1.")
         if (ncol(value) == 0)
           cli_stop("Argument {.val {name}} must be a data frame with ncols >= 1.")

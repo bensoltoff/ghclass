@@ -8,7 +8,7 @@
 \alias{issue_edit}
 \title{GitHub Issue related tools}
 \usage{
-issue_close(repo, number)
+issue_close(repo, number, comment = NULL)
 
 issue_create(
   repo,
@@ -34,6 +34,10 @@ issue_edit(
 \item{repo}{Character. Address of one or more repositories in \code{owner/name} format.}
 
 \item{number}{Integer. GitHub issue number.}
+
+\item{comment}{Character. Optional comment to post on the issue before
+closing it. If posting the comment fails the issue is not closed. Recycled
+against \code{repo} / \code{number}.}
 
 \item{title}{Character. Title of the issue.}
 

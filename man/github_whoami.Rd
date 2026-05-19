@@ -7,7 +7,7 @@
 github_whoami(quiet = FALSE)
 }
 \arguments{
-\item{quiet}{Logical. Should status messages be shown.}
+\item{quiet}{Logical. Should status messages be shown. Default \code{FALSE}.}
 }
 \value{
 Character value containing user login.

@@ -1,3 +1,5 @@
+#' @rdname ghclass-internal
+#' @export
 github_api_repo_get_file = function(repo, path, branch = NULL) {
   arg_is_chr_scalar(repo, path)
   arg_is_chr_scalar(branch, allow_null=TRUE)

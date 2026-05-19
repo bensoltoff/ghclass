@@ -1,3 +1,5 @@
+#' @rdname ghclass-internal
+#' @export
 read_bin_file = function(x) {
   f = file(x, "rb")
   size = file.size(x)
@@ -12,8 +14,8 @@ read_bin_file = function(x) {
 #'
 #' @param file Character. Local file path(s) of file or files to be added.
 #' @param repo_folder Character. Name of folder on repository to save the file(s) to. If the folder does not exist on the repository, it will be created.
-#' @param preserve_path Logical. Should the local relative path be preserved.
-#' @param overwrite Logical. Should existing file or files with same name be overwritten, defaults to FALSE.
+#' @param preserve_path Logical. Should the local relative path be preserved. Default `FALSE`.
+#' @param overwrite Logical. Should existing file or files with same name be overwritten. Default `FALSE`.
 #'
 #' @export
 #'

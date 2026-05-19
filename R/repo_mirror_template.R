@@ -15,7 +15,7 @@ github_api_repo_mirror_template = function(source_repo, repo, private){
 #' @param source_repo Character. Address of template repository in `owner/name` format.
 #' @param target_repo Character. One or more repository addresses in `owner/name` format.
 #' Note when using template repos these new repositories must *not* exist.
-#' @param private Logical. Should the new repository be private or public.
+#' @param private Logical. Should the new repository be private or public. Default `TRUE`.
 #'
 #' @export
 #'

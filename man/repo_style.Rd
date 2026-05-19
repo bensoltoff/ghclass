@@ -24,14 +24,14 @@ repo_style(
 
 \item{base}{Character. Name of branch that contains the .R and/or .Rmd files to be styled}
 
-\item{create_pull_request}{Logical. If TRUE, a pull request is created from branch to base.}
+\item{create_pull_request}{Logical. If TRUE, a pull request is created from branch to base. Default \code{TRUE}.}
 
 \item{draft}{Logical. Should the pull request be created as a draft pull request? (Draft PRs cannot be merged
-until allowed by the author)}
+until allowed by the author) Default \code{TRUE}.}
 
-\item{tag_collaborators}{Logical. If TRUE, a message with the repository collaborators is displayed.}
+\item{tag_collaborators}{Logical. If TRUE, a message with the repository collaborators is displayed. Default \code{TRUE}.}
 
-\item{prompt}{Character. Prompt the user before overwriting an existing branch.}
+\item{prompt}{Logical. Prompt the user before overwriting an existing branch. Default \code{TRUE}.}
 }
 \value{
 The functions returns NULL invisibly.

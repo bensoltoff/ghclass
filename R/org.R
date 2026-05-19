@@ -9,11 +9,13 @@
 #'
 #' * `org_set_repo_permission()` - Change the default permission level for org repositories.
 #'
-#' `org_workflow_permissions()` - Obtain the current default workflow permission value
+#' * `org_workflow_permissions()` - Obtain the current default workflow permission value
 #' for the organization.
 #'
-#' `org_set_workflow_permissions()` - Change the current default workflow permission value
+#' * `org_set_workflow_permissions()` - Change the current default workflow permission value
 #' for the organization.
+#'
+#' * `org_allows_forking()` - returns `TRUE` if members can fork private repositories in the organization.
 #'
 #' @param org Character. Name of the GitHub organization(s).
 #' @param repo_permission Default permission level members have for organization repositories:
@@ -31,6 +33,8 @@
 #' `org_workflow_permissions()` returns a character vector with value of either `"read"` or `"write"`.
 #'
 #' `org_set_workflow_permissions()` invisibly return a the result of the relevant GitHub API call.
+#'
+#' `org_allows_forking()` returns a logical scalar.
 #'
 #' @examples
 #' \dontrun{
@@ -73,7 +77,7 @@ NULL
 #' @param org Character. Name of the GitHub organization(s).
 #' @param user Character. GitHub username(s).
 #' @param filter Character. Regular expression pattern for matching (or excluding) results
-#' @param exclude Logical. Should entries matching the regular expression be excluded or included.
+#' @param exclude Logical. Should entries matching the regular expression be excluded or included. Default `FALSE`.
 #'
 #' @return `org_members()`, `org_pending()`, and `org_admins` all return a character vector
 #' of GitHub account names.
@@ -129,15 +133,29 @@ NULL
 #' * `org_repo_stats()` - returns a tibble of repositories belonging to a GitHub organization along with some
 #' basic statistics about those repositories.
 #'
+#' * `org_repo_forking()` - returns a tibble of private repositories in an organization and whether forking is enabled for each.
+#'
+#' * `org_user_repos()` - constructs a character vector of per-user repo addresses
+#' (`org/prefix<user>suffix`) aligned with `user`, for safely pairing with
+#' [repo_add_user()] and similar.
+#'
 #' @param org Character. Name of the GitHub organization(s).
 #' @param filter Character. Regular expression pattern for matching (or excluding) results
-#' @param exclude Logical. Should entries matching the regular expression be excluded or included.
+#' @param exclude Logical. Should entries matching the regular expression be excluded or included. Default `FALSE`.
 #'
 #' @return `org_exists()` returns a logical vector.
 #'
-#' `org_teams()`, `org_repos`, and `org_repo_search()` return a character vector of team or repo names.
+#' `org_teams()`, `org_repos`, `org_repo_search()`, and `org_user_repos()` return a character vector.
 #'
-#' `org_team_details()` and `org_repo_stats()` return tibbles.
+#' `org_team_details()`, `org_repo_stats()`, and `org_repo_forking()` return tibbles.
+#'
+#' @section Note:
+#'
+#' The order of `org_repos()` is not guaranteed to match the order of
+#' `org_members()`, so do not rely on positional pairing of the two when
+#' calling functions like [repo_add_user()]. To pair each user with their own
+#' repo deterministically, build the repo names from the user vector with
+#' `org_user_repos()`.
 #'
 #' @examples
 #' \dontrun{

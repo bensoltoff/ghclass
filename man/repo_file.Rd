@@ -62,15 +62,15 @@ repo_put_file(
 
 \item{branch}{Character. Name of branch to use.}
 
-\item{preserve_path}{Logical. Should the local relative path be preserved.}
+\item{preserve_path}{Logical. Should the local relative path be preserved. Default \code{FALSE}.}
 
-\item{overwrite}{Logical. Should existing file or files with same name be overwritten, defaults to FALSE.}
+\item{overwrite}{Logical. Should existing file or files with same name be overwritten. Default \code{FALSE}.}
 
 \item{path}{Character. File's path within the repository.}
 
-\item{quiet}{Logical. Should status messages be printed.}
+\item{quiet}{Logical. Should status messages be printed. Default \code{FALSE}.}
 
-\item{include_details}{Logical. Should file details be attached as attributes.
+\item{include_details}{Logical. Should file details be attached as attributes. Default \code{TRUE}.
 
 \code{repo_delete_file()}m \code{repo_modify_file()}, and \code{repo_put_file()} all invisibly
 return a list containing the results of the relevant GitHub API calls.
@@ -80,7 +80,7 @@ return a list containing the results of the relevant GitHub API calls.
 \code{repo_get_file()} and \code{repo_get_readme()} return a character vector with API results
 attached as attributes if \code{include_details = TRUE}}
 
-\item{full_path}{Logical. Should the function return the full path of the files and directories.}
+\item{full_path}{Logical. Should the function return the full path of the files and directories. Default \code{FALSE}.}
 
 \item{pattern}{Character. Regex pattern.}
 
@@ -90,7 +90,7 @@ attached as attributes if \code{include_details = TRUE}}
 
 \item{all}{Character. Should all instances of the pattern be modified (\code{TRUE}) or just the first (\code{FALSE}).}
 
-\item{verbose}{Logical. Should success / failure messages be printed}
+\item{verbose}{Logical. Should success / failure messages be printed. Default \code{TRUE}.}
 }
 \description{
 \itemize{

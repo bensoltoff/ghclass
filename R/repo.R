@@ -26,11 +26,17 @@
 #'
 #' * `repo_set_template()` - change the template status of a repository.
 #'
+#' * `repo_allows_forking()` - returns `TRUE` if forking is enabled for a repository.
+#'
+#' * `repo_set_forking()` - enable or disable forking for a repository.
+#'
 #' @param repo Character. Address of repository in `owner/repo` format.
 #'
 #' @return `repo_create()` returns a character vector of created repos (in `owner/repo` format)
 #'
-#' `repo_exists()` and `repo_is_template()` both return a logical vector.
+#' `repo_exists()`, `repo_is_template()`, and `repo_allows_forking()` all return a logical vector.
+#'
+#' `repo_set_forking()` invisibly returns a list containing the results of the relevant GitHub API calls.
 #'
 #' All other functions invisibly return a list containing the results of the relevant GitHub API calls.
 #'
@@ -103,6 +109,17 @@ NULL
 #'
 #' @param repo Character. Address of repository in `owner/repo` format.
 #'
+#' @details
+#'
+#' For `repo_commits()`, GitHub returns two timestamps for each commit: the
+#' author date (`date`) and the committer date (`committer_date`). These
+#' differ for rebased, cherry-picked, or amended commits. The `since` and
+#' `until` arguments are filtered by GitHub against the committer date.
+#'
+#' The `login` column is `NA` when the commit's author email is not linked
+#' to a GitHub account. The git author's `name` and `email` are still
+#' populated in those cases.
+#'
 #' @return `repo_clone_url()` and `repo_branches()` both return a character vector.
 #'
 #' `repo_commits()`, `repo_issues()`, `repo_n_commits()`, and `repo_prs()` all return a tibble.
@@ -154,8 +171,8 @@ NULL
 #' @param path Character. File's path within the repository.
 #' @param message Character. Commit message.
 #' @param branch Character. Name of branch to use.
-#' @param quiet Logical. Should status messages be printed.
-#' @param include_details Logical. Should file details be attached as attributes.
+#' @param quiet Logical. Should status messages be printed. Default `FALSE`.
+#' @param include_details Logical. Should file details be attached as attributes. Default `TRUE`.
 #'
 #' `repo_delete_file()`m `repo_modify_file()`, and `repo_put_file()` all invisibly
 #' return a list containing the results of the relevant GitHub API calls.
@@ -264,6 +281,10 @@ NULL
 #' * `"admin"` - can pull, push and administer this repository.
 #' * `"maintain"` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
 #' * `"triage"` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
+#'
+#' `repo_contributors()` is built on GitHub's `/stats/contributors` endpoint,
+#' which groups commits by GitHub user. Commits whose author email is not
+#' linked to a GitHub account are not included in the result.
 #'
 #'
 #' @examples

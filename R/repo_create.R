@@ -15,8 +15,8 @@ github_api_org_repo_create = function(repo, private, auto_init, gitignore_templa
 #' @param name Character. Repository name
 #' @param prefix Character. Common repository name prefix
 #' @param suffix Character. Common repository name suffix
-#' @param private Logical. Create private repositories?
-#' @param auto_init Logical. Should the repository be initialized with a `README.md`.
+#' @param private Logical. Create private repositories? Default `TRUE`.
+#' @param auto_init Logical. Should the repository be initialized with a `README.md`. Default `FALSE`.
 #' @param gitignore_template Character. `.gitignore` language template to use.
 #'
 #' @export

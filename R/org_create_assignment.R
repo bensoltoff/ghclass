@@ -13,8 +13,11 @@
 #' @param user Character. GitHub username(s).
 #' @param team Character. Team names, if not provided an individual assignment will be created.
 #' @param source_repo Character. Address of the repository to use as a template for all created repos.
-#' @param private Logical. Should the created repositories be private.
-#' @param add_badges Logical. Should GitHub action badges be added to the README.
+#' @param private Logical. Should the created repositories be private. Default `TRUE`.
+#' @param add_badges Logical. Should GitHub action badges be added to the README. Default `FALSE`.
+#' @param ignore_existing Logical. If `TRUE`, any requested repos that already
+#' exist are skipped (with a warning) and the remaining repos are still
+#' created; useful for resuming a partially failed run. Default `FALSE`.
 #'
 #' @return An invisible list containing the results of each step.
 #'
@@ -22,13 +25,14 @@
 #'
 
 org_create_assignment = function(org, repo, user, team = NULL, source_repo = NULL,
-                                 private = TRUE, add_badges = FALSE) {
+                                 private = TRUE, add_badges = FALSE,
+                                 ignore_existing = FALSE) {
 
   arg_is_chr_scalar(org)
   arg_is_chr(repo, user)
   arg_is_chr(team, allow_null = TRUE)
   arg_is_chr_scalar(source_repo, allow_null = TRUE)
-  arg_is_lgl_scalar(private)
+  arg_is_lgl_scalar(private, ignore_existing)
 
   repo_full = paste0(org, "/", repo)
 
@@ -42,10 +46,26 @@ org_create_assignment = function(org, repo, user, team = NULL, source_repo = NUL
 
   existing = repo_exists(repo_full)
   if (any(existing)) {
-    cli_stop(
-      "The following repo{?s} already exist{?s/}: {.val {repo_full[existing]}}. ",
-      "Delete these repo{?s} or use an alternative method to create the assignment."
+    if (!ignore_existing) {
+      cli_stop(
+        "The following repo{?s} already exist{?s/}: {.val {repo_full[existing]}}. ",
+        "Delete these repo{?s} or use an alternative method to create the assignment, ",
+        "or set {.code ignore_existing = TRUE} to skip them."
+      )
+    }
+
+    cli::cli_warn(
+      "Skipping {sum(existing)} existing repo{?s}: {.val {repo_full[existing]}}."
     )
+
+    if (all(existing))
+      return(invisible(list()))
+
+    repo = repo[!existing]
+    user = user[!existing]
+    if (!is.null(team))
+      team = team[!existing]
+    repo_full = paste0(org, "/", repo)
   }
 
   res = list()

@@ -8,7 +8,7 @@ github_api_org_members = function(org) {
 }
 
 #' @rdname org_members
-#' @param include_admins Logical. Should admin users be included in the results.
+#' @param include_admins Logical. Should admin users be included in the results. Default `TRUE`.
 #' @export
 #'
 org_members = function(org, filter = NULL, exclude = FALSE,

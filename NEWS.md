@@ -1,9 +1,46 @@
 # ghclass (development version)
 
-# ghclass 0.3.1.9000 - Development version
+# ghclass 0.4.0
+
+* Added `ignore_existing` argument to `org_create_assignment()` (#134, idea by @davidbuch).
+
+* Added `committer_date` column to `repo_commits()` output (#139).
+
+* Added `comment` argument to `issue_close()` (#136).
+
+* `repo_contributors()` now retries on HTTP 202 and warns instead of silently returning empty (#117).
+
+* `org_repo_stats()` now deduplicates rows by repo (#116).
+
+* Added `org_user_repos()` (#103).
+
+* Logical `@param` descriptions now state defaults (#39).
+
+* Improvements to `action_artifacts()` and `action_artifact_download()`
+
+  * Added `branch` column to `action_artifacts()` output
+
+  * Added `filter_branch` / `exclude_branch` and `filter` / `exclude` arguments to both functions for filtering by branch name and artifact name respectively
+
+  * `action_artifact_download()` better handles repos with multiple objects (errors only show for no matching artifacts)
+
+  * `action_artifact_download()` disambiguates output filenames for repos with multiple artifacts by appending the artifact name.
+
+  * Breaking: `action_artifact_download()` reworked. Removed `file_pat`; added `nest`. Each artifact is extracted into its own folder under `dir`; `keep_zip` controls whether the zip is retained. `org_grade_assignment()`'s `artifacts` values are now artifact-name filter patterns.
+
+* Added `org_grade_assignment()` to automate grading setup: clones repos, downloads GitHub Actions artifacts, and creates comment template files.
+
+* Added `repo_allows_forking()` to check if forking is enabled for a repository.
+
+* Added `org_allows_forking()` to check if members can fork private repositories in an organization.
+
+* Added `org_repo_forking()` to retrieve the forking status of all private repositories in an organization.
+
+* Added `repo_set_forking()` to enable or disable forking for a repository.
 
 * Tweaked how teams slugs are looked up due to API delays / caching issues which was causing errors in `org_create_assignment()`.
 
+* Fixed a minor issue with data handling in `action_runs()`
 
 # ghclass 0.3.1
 

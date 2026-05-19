@@ -2,9 +2,9 @@
 #'
 #' @param source_repo Character. Address of repository in "owner/name" format.
 #' @param target_repo Character. One or more repository addresses in "owner/name" format.
-#' @param overwrite Logical. Should the target repositories be overwritten.
-#' @param verbose Logical. Display verbose output.
-#' @param warn Logical. Warn the user about the function being deprecated.
+#' @param overwrite Logical. Should the target repositories be overwritten. Default `FALSE`.
+#' @param verbose Logical. Display verbose output. Default `FALSE`.
+#' @param warn Logical. Warn the user about the function being deprecated. Default `TRUE`.
 #'
 #' @export
 #'

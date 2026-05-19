@@ -13,7 +13,7 @@ github_api_repo_put_file = function(repo, path, content, message, branch = NULL,
 #' @rdname repo_file
 #'
 #' @param content Character or raw. Content of the file.
-#' @param verbose Logical. Should success / failure messages be printed
+#' @param verbose Logical. Should success / failure messages be printed. Default `TRUE`.
 #'
 #' @export
 #'

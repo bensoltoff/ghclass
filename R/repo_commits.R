@@ -63,9 +63,9 @@ github_api_repo_commits = function(repo, sha=NULL, path=NULL, author=NULL, since
 #' @param sha	   Character.	SHA to start listing commits from.
 #' @param path	 Character.	Only commits containing this file path will be returned.
 #' @param author Character.	GitHub login or email address by which to filter commit author.
-#' @param since	 Character.	Only commits after this date will be returned, expects `YYYY-MM-DDTHH:MM:SSZ` format.
-#' @param until	 Character.	Only commits before this date will be returned, expects `YYYY-MM-DDTHH:MM:SSZ` format.
-#' @param quiet  Logical. Should an error message be printed if the repo does not exist.
+#' @param since	 Character.	Only commits after this date will be returned, expects `YYYY-MM-DDTHH:MM:SSZ` format. Filtered against the `committer_date` column, see Details.
+#' @param until	 Character.	Only commits before this date will be returned, expects `YYYY-MM-DDTHH:MM:SSZ` format. Filtered against the `committer_date` column, see Details.
+#' @param quiet  Logical. Should an error message be printed if the repo does not exist. Default `FALSE`.
 #'
 #' @export
 #'
@@ -98,12 +98,13 @@ repo_commits = function(repo, branch = NULL, sha = branch, path = NULL,
 
       if (empty_result(commits)) {
         tibble::tibble(
-          repo  = character(),
-          login = character(),
-          name  = character(),
-          email = character(),
-          date  = as.POSIXct(character()),
-          msg   = character()
+          repo           = character(),
+          login          = character(),
+          name           = character(),
+          email          = character(),
+          date           = as.POSIXct(character()),
+          committer_date = as.POSIXct(character()),
+          msg            = character()
         )
       } else {
         tibble::tibble(
@@ -114,7 +115,10 @@ repo_commits = function(repo, branch = NULL, sha = branch, path = NULL,
           date  = lubridate::ymd_hms(
             purrr::map_chr(commits, c("commit", "author", "date"), .default = NA)
           ),
-          msg   = purrr::map_chr(commits, c("commit", "message"), .default = NA)
+          committer_date = lubridate::ymd_hms(
+            purrr::map_chr(commits, c("commit", "committer", "date"), .default = NA)
+          ),
+          msg = purrr::map_chr(commits, c("commit", "message"), .default = NA)
         )
       }
     }

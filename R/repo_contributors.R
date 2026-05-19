@@ -1,12 +1,39 @@
-github_api_repo_contributors = function(repo) {
+github_api_repo_contributors = function(repo, max_retries = 5, retry_delay = 2) {
   owner = get_repo_owner(repo)
-  repo = get_repo_name(repo)
+  name  = get_repo_name(repo)
 
-  ghclass_api_v3_req(
-    endpoint = "GET /repos/:owner/:repo/stats/contributors",
-    owner = owner,
-    repo = repo
-  )
+  url = paste0("https://api.github.com/repos/", owner, "/", name, "/stats/contributors")
+
+  for (i in seq_len(max_retries + 1)) {
+    req = httr::GET(
+      url,
+      httr::add_headers(
+        Authorization = paste("bearer", github_get_token()),
+        "X-GitHub-Api-Version" = "2022-11-28",
+        Accept = "application/vnd.github+json"
+      )
+    )
+
+    code = httr::status_code(req)
+
+    if (code == 202) {
+      if (i <= max_retries) {
+        Sys.sleep(retry_delay)
+        next
+      }
+      cli::cli_warn(
+        "GitHub is still computing contributor stats for {.val {repo}} after {max_retries} retries; try again shortly."
+      )
+      return(list())
+    }
+
+    if (code >= 300) {
+      content = httr::content(req)
+      cli_stop("GitHub API Error ({code}) - {content$message}")
+    }
+
+    return(httr::content(req))
+  }
 }
 
 #' @rdname repo_user

@@ -12,7 +12,7 @@ github_api_org_repos = function(org, type = NULL, sort = NULL, direction = NULL)
 }
 
 #' @rdname org_details
-#' @param full_repo Logical. Should the full repository address be returned (e.g. `owner/repo` instead of just `repo`).
+#' @param full_repo Logical. Should the full repository address be returned (e.g. `owner/repo` instead of just `repo`). Default `TRUE`.
 #' @param sort Character. Sorting criteria to use, can be one of "created", "updated", "pushed", or "full_name".
 #' @param direction Character. Sorting order to use.
 #' @param type  Character. Specifies the type of repositories you want, can be one of

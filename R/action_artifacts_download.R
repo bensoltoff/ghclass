@@ -19,103 +19,140 @@ github_api_download_artifact = function(repo, id, dest) {
 #' @name action
 #' @rdname action
 #'
-#' @param keep_zip Logical. Should the artifact zips be saved (`TRUE`) or their contents (`FALSE`).
-#' @param file_pat Character. If extracting zip with multiple files, regexp pattern to match filename.
-#' @param overwrite Logical. Should existing files be overwritten.
+#' @param keep_zip Logical. Should the downloaded zip files be retained (`TRUE`)
+#'   or deleted after extraction (`FALSE`). Default `FALSE`.
+#' @param nest Logical. If `TRUE`, place each repo's artifacts under a
+#'   `dir/{repo_name}/` subdirectory; otherwise flatten into `dir/` with
+#'   repo-prefixed names. Default `FALSE`.
+#' @param overwrite Logical. Should existing zip files or extraction folders
+#'   be overwritten. Default `FALSE`.
 #'
 #' @export
 #'
 action_artifact_download = function(
-  repo, dir, ids = action_artifacts(repo),
-  keep_zip=FALSE, file_pat = "", overwrite = FALSE
+  repo, dir,
+  filter = NULL, exclude = FALSE,
+  filter_branch = NULL, exclude_branch = FALSE,
+  keep_zip = FALSE, nest = FALSE, overwrite = FALSE,
+  ids = action_artifacts(
+    repo,
+    filter = filter, exclude = exclude,
+    filter_branch = filter_branch, exclude_branch = exclude_branch
+  )
 ) {
   arg_is_chr(repo)
-  arg_is_chr_scalar(dir, file_pat)
-  arg_is_lgl_scalar(keep_zip)
-
+  arg_is_chr_scalar(dir)
+  arg_is_lgl_scalar(keep_zip, nest, overwrite, exclude_branch, exclude)
+  arg_is_chr_scalar(filter_branch, allow_null = TRUE)
+  arg_is_chr_scalar(filter, allow_null = TRUE)
 
   dir.create(dir, showWarnings = FALSE, recursive = TRUE)
 
   if (is.numeric(ids))
-    ids = tibble::tibble(repo = repo, id = ids)
-  arg_is_df(ids)
+    ids = tibble::tibble(repo = repo, id = ids, name = as.character(ids))
+  arg_is_df(ids, allow_empty = TRUE)
 
-  if (nrow(ids) == 0)
-    cli_stop("No artifacts available for the given repos.")
+  if (nrow(ids) == 0) {
+    cli::cli_alert_danger("No artifacts available for the given repos.")
+    return(invisible(character()))
+  }
 
   df = dplyr::left_join(
     tibble::tibble(repo = repo),
     ids,
     by = "repo"
   ) %>%
-    dplyr::select("repo", "id")
+    dplyr::select("repo", "id", "name")
 
-  res = purrr::pmap_chr(
-    df,
-    function(repo, id) {
-      res = purrr::safely(github_api_download_artifact)(repo, id)
-      file = result(res)
+  repo_groups = split(df, df[["repo"]])
 
-      if (failed(res)) {
+  res = purrr::map(
+    repo_groups,
+    function(repo_df) {
+      cur_repo = repo_df[["repo"]][1]
+      cur_ids = repo_df[["id"]]
+      cur_names = repo_df[["name"]]
+
+      if (all(is.na(cur_ids))) {
         cli::cli_alert_danger(
-          "Failed to download artifact with id {.val {id}} from repo {.val {repo}}.",
+          "No artifacts found for repo {.val {cur_repo}}.",
           wrap = FALSE
         )
         return(NA_character_)
       }
 
-      if (keep_zip) {
-        dest_path = fs::path_norm( glue::glue("{dir}/{get_repo_name(repo)}.zip") )
+      not_na = !is.na(cur_ids)
+      cur_ids = cur_ids[not_na]
+      cur_names = cur_names[not_na]
 
-        if (file.exists(dest_path) & !overwrite) {
-          cli::cli_alert_danger(
-            "File {.file {dest_path}} already exists, set {.code overwrite = TRUE} to overwrite this file.",
+      repo_name = get_repo_name(cur_repo)
+
+      purrr::map2_chr(
+        cur_ids, cur_names,
+        function(id, name) {
+          if (nest) {
+            repo_dir = fs::path_norm(fs::path(dir, repo_name))
+            zip_path = fs::path_norm(fs::path(repo_dir, name, ext = "zip"))
+            extract_dir = fs::path_norm(fs::path(repo_dir, name))
+          } else {
+            base = paste0(repo_name, "_", name)
+            zip_path = fs::path_norm(fs::path(dir, base, ext = "zip"))
+            extract_dir = fs::path_norm(fs::path(dir, base))
+          }
+
+          if ((file.exists(zip_path) || dir.exists(extract_dir)) && !overwrite) {
+            cli::cli_alert_danger(
+              paste0(
+                "Destination {.file {extract_dir}} or {.file {zip_path}} already exists, ",
+                "set {.code overwrite = TRUE} to overwrite."
+              ),
+              wrap = FALSE
+            )
+            return(NA_character_)
+          }
+
+          if (overwrite) {
+            if (dir.exists(extract_dir))
+              unlink(extract_dir, recursive = TRUE, force = TRUE)
+            if (file.exists(zip_path))
+              file.remove(zip_path)
+          }
+
+          if (nest)
+            dir.create(fs::path_dir(zip_path), showWarnings = FALSE, recursive = TRUE)
+
+          dl = purrr::safely(github_api_download_artifact)(cur_repo, id, dest = zip_path)
+          if (failed(dl)) {
+            cli::cli_alert_danger(
+              "Failed to download artifact with id {.val {id}} from repo {.val {cur_repo}}.",
+              wrap = FALSE
+            )
+            return(NA_character_)
+          }
+
+          dir.create(extract_dir, showWarnings = FALSE, recursive = TRUE)
+          unzipped = purrr::safely(utils::unzip)(zip_path, exdir = extract_dir)
+          if (failed(unzipped)) {
+            cli::cli_alert_danger(
+              "Failed to extract artifact with id {.val {id}} from repo {.val {cur_repo}} to {.file {extract_dir}}.",
+              wrap = FALSE
+            )
+            return(NA_character_)
+          }
+
+          if (!keep_zip)
+            file.remove(zip_path)
+
+          cli::cli_alert_success(
+            "Downloaded artifact {.val {id}} from repo {.val {cur_repo}} to {.file {extract_dir}}.",
             wrap = FALSE
           )
-          return(NA_character_)
+
+          extract_dir
         }
-
-        file.rename(file, dest_path)
-      } else {
-        art_file = utils::unzip(file, list=TRUE)[["Name"]]
-        art_file = art_file[grepl(file_pat, art_file)]
-
-        if (length(art_file) != 1) {
-          cli::cli_alert_danger(
-            paste0("Downloaded artifact with id {.val {id}} from repo {.val {repo}} contains ",
-                  "{.val {length(art_file)}} files matching {.val {file_pat}}.",
-                  ifelse(length(art_file), "\nMatching files: {.val {art_file}}.", "")),
-            wrap = FALSE
-          )
-          return(NA_character_)
-        }
-        ext = fs::path_ext(art_file)
-        if (ext != "") ext = paste0(".", ext)
-
-        data = readr::read_file_raw(unz(file, art_file))
-
-        dest_path = fs::path_norm( glue::glue("{dir}/{get_repo_name(repo)}{ext}") )
-
-        if (file.exists(dest_path) & !overwrite) {
-          cli::cli_alert_danger(
-            "File {.file {dest_path}} already exists, set {.code overwrite = TRUE} to overwrite this file.",
-            wrap = FALSE
-          )
-          return(NA_character_)
-        }
-
-        readr::write_file(data, dest_path)
-      }
-
-      status_msg(
-        res,
-        "Downloaded artifact {.val {id}} from repo {.val {repo}} to {.val {dest_path}}.",
-        NULL
       )
-
-      dest_path
     }
   )
 
-  invisible(res)
+  invisible(unlist(res))
 }
